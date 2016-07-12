@@ -1,0 +1,91 @@
+javascript:
+
+
+  Skirt = function(sellerId){
+    this.sellerId = sellerId
+    this.amazonOrderReferenceJson = null;
+  };
+
+  Skirt.prototype.getOrderReference = function() {
+    var access_token = document.getElementById("access_token").value;
+
+    var self = this;
+    $.ajax({
+      type: "GET",
+      data: "orderReferenceId=" + orderReferenceId + "&access_token=" + access_token,
+      url: "/amazon_order_reference",
+      success: function(html){
+        self.amazonOrderReferenceJson = JSON.parse(html);
+        // console.log(self.amazonOrderReferenceJson);
+        if (typeof gotOrderReference == 'function') {
+          gotOrderReference(self.amazonOrderReferenceJson);
+        }
+      }
+    });
+  };
+
+
+  Skirt.prototype.showWallet = function() {
+    var self = this;
+    // Wallet
+    new OffAmazonPayments.Widgets.Wallet({
+      sellerId: self.sellerId,
+      onPaymentSelect: function() {
+        console.log('onPaymentSelect');
+      },
+      design: {
+        designMode: 'responsive'
+      },
+      onError: function(error) {
+
+        // @see https://payments.amazon.com/documentation/lpwa/201954960
+        var errorCode = error.getErrorCode();
+        var errorMessage = error.getErrorMessage();
+
+        alert(errorMessage);
+
+      }
+    }).bind("walletWidgetDiv");
+  };
+
+
+  Skirt.prototype.showAddressBook = function() {
+    var self = this;
+    //AddressBook
+    new OffAmazonPayments.Widgets.AddressBook({
+      sellerId: self.sellerId,
+      onOrderReferenceCreate: function (orderReference) {
+
+        var orderReference = orderReference;
+        orderReferenceId = orderReference.getAmazonOrderReferenceId();
+
+        var el;
+        if ((el = document.getElementById("orderReferenceId"))) {
+          el.value = orderReferenceId;
+        }
+
+        console.log('onOrderReferenceCreate');
+        self.showWallet();
+
+        self.getOrderReference();
+
+      },
+      onAddressSelect: function (orderReference) {
+        console.log('onAddressSelect');
+      },
+      design: {
+          designMode: 'responsive'
+      },
+      onError: function (error) {
+
+        // @see https://payments.amazon.com/documentation/lpwa/201954960
+        var errorCode = error.getErrorCode();
+        var errorMessage = error.getErrorMessage();
+
+        alert(errorMessage);
+
+      }
+    }).bind("addressBookWidgetDiv");
+
+
+  };

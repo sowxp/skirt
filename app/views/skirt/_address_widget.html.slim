@@ -1,0 +1,18 @@
+#addressBookWidgetDiv style="height:250px"
+
+#detail
+
+= render '/skirt/access_token_js'
+= render '/skirt/login_ready_js'
+= render '/skirt/sap_js'
+
+= javascript_include_tag "https://static-fe.payments-amazon.com/OffAmazonPayments/jp/sandbox/lpa/js/Widgets.js"
+
+javascript:
+
+  var sowAmazonPayments = new Skirt("#{Skirt::Config.seller_id}");
+
+  window.addEventListener('load', function (){
+    sowAmazonPayments.showAddressBook();
+  }); 
+

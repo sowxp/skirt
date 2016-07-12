@@ -1,0 +1,7 @@
+
+javascript:
+
+  window.onAmazonLoginReady = function() {
+    amazon.Login.setClientId("#{Skirt::Config.client_id}");
+    amazon.Login.setUseCookie(true);
+  };

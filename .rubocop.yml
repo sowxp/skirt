@@ -1,0 +1,29 @@
+Rails:
+  Enabled: true
+
+Style/AsciiComments:
+  Enabled: false
+
+RedundantSelf:
+  Enabled: false
+
+Lambda:
+  Enabled: false
+
+Style/ExtraSpacing:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false 
+
+Style/EmptyLinesAroundClassBody:
+  Enabled: false 
+
+Style/EmptyLinesAroundMethodBody:
+  Enabled: false 
+
+Style/Documentation:
+  Enabled: false

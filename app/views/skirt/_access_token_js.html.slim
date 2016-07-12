@@ -1,0 +1,19 @@
+/ リダイレクトログインの場合
+
+javascript:
+
+  function getURLParameter(name, source) {
+    return decodeURIComponent((new RegExp('[?|&|#]' + name + '=' + '([^&]+?)(&|#|;|$)').exec(source) || [,""])[1].replace(/\+/g, '%20')) || null;
+  }
+
+  var accessToken = getURLParameter("access_token", location.hash);
+
+  if (typeof accessToken === 'string' && accessToken.match(/^Atza/)) {
+    document.cookie = "amazon_Login_accessToken=" + accessToken + ";secure";
+  }
+
+  window.addEventListener('load', function (){
+    if(accessToken){
+      $('#access_token').val(accessToken);
+    }
+  });
