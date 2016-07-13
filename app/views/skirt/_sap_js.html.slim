@@ -42,7 +42,7 @@ javascript:
         var errorCode = error.getErrorCode();
         var errorMessage = error.getErrorMessage();
 
-        alert(errorMessage);
+        //alert(errorMessage);
 
       }
     }).bind("walletWidgetDiv");
@@ -82,7 +82,11 @@ javascript:
         var errorCode = error.getErrorCode();
         var errorMessage = error.getErrorMessage();
 
-        alert(errorMessage);
+        if (errorCode == 'BuyerSessionExpired') {
+          if (typeof gotErrorBuyerSessionExpired == 'function') {
+            gotErrorBuyerSessionExpired();
+          }
+        }
 
       }
     }).bind("addressBookWidgetDiv");
