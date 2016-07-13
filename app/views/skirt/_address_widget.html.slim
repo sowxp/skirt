@@ -7,12 +7,12 @@
 = render '/skirt/skirt_js'
 
 = javascript_include_tag "https://static-fe.payments-amazon.com/OffAmazonPayments/jp/sandbox/lpa/js/Widgets.js"
+/= javascript_include_tag "https://static-fe.payments-amazon.com/OffAmazonPayments/jp/lpa/js/Widgets.js"
 
 javascript:
 
-  var sowAmazonPayments = new Skirt("#{Skirt::Config.seller_id}");
-
+  var skirt = new Skirt("#{Skirt::Config.seller_id}");
   window.addEventListener('load', function (){
-    sowAmazonPayments.showAddressBook();
+    skirt.showAddressBook();
   }); 
 
