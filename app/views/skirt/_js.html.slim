@@ -1,5 +1,3 @@
-- redirect_url = Rails.env.test? ? 'https://sowxp-gift-poltergeist.dev:8443' : 'https://sowxp-gift.dev'
-- redirect_url += Skirt::Config.after_login_path
 
 = render '/skirt/login_ready_js'
 
@@ -17,7 +15,7 @@ javascript:
         loginOptions = {scope: "profile payments:widget payments:shipping_address", 
                         popup: #{popup},
                         };
-        var redirectUrl = '#{ redirect_url }';
+        var redirectUrl = '#{ Skirt::Config.after_login_path }';
         amazon.Login.authorize (loginOptions, redirectUrl,
           function(response) {
             addressConsentToken = response.access_token;

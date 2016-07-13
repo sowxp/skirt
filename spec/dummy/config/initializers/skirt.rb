@@ -4,7 +4,11 @@ require 'skirt/config'
 Skirt.configure do |config|
 
   # ログイン後のURL
-  config.after_login_path = '/amazon_payments/new'
+  if Rails.env.test?
+    config.after_login_path = 'https://sowxp-gift-poltergeist.dev:8443/amazon_payments/new'
+  elsif Rails.env.development?
+    config.after_login_path = 'https://sowxp-gift.dev/amazon_payments/new'
+  end
 
   # 購入処理のURL
   config.purchase_path = '/amazon_payments'
