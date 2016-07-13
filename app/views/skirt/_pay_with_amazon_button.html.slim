@@ -3,32 +3,15 @@
     | Logout
 
 = render '/skirt/login_ready_js'
+= render '/skirt/skirt_js'
 
 javascript:
 
+  var skirt = new Skirt("#{Skirt::Config.seller_id}");
+
   window.addEventListener('load', function (){
-    var seller_id = "#{Skirt::Config.seller_id}";
-    OffAmazonPayments.Button("AmazonPayButton", seller_id, {
-      type:  "PwA",
-      color: "Gold",
-      size:  "medium",
-
-      authorization: function() {
-
-        loginOptions = {scope: "profile payments:widget payments:shipping_address", 
-                        popup: #{popup},
-                        };
-        var redirectUrl = '#{ Skirt::Config.after_login_path }';
-        amazon.Login.authorize (loginOptions, redirectUrl,
-          function(response) {
-            addressConsentToken = response.access_token;
-          });
-      },
-      onSignIn: function (orderReference) {
-      },
-    });
+    skirt.showPayWithAmazonButton(#{popup});
   });
-
 
   document.getElementById('Logout').onclick = function() {
     amazon.Login.logout();

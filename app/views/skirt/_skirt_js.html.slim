@@ -5,6 +5,27 @@ javascript:
     this.amazonOrderReferenceJson = null;
   };
 
+  Skirt.prototype.showPayWithAmazonButton = function(popup) {
+    var seller_id = "#{Skirt::Config.seller_id}";
+    OffAmazonPayments.Button("AmazonPayButton", seller_id, {
+      type:  "PwA",
+      color: "Gold",
+      size:  "medium",
+
+      authorization: function() {
+
+        loginOptions = { scope: "profile payments:widget payments:shipping_address", 
+                         popup: popup };
+        var redirectUrl = '#{ Skirt::Config.after_login_path }';
+        amazon.Login.authorize(loginOptions, redirectUrl, function(response){
+          addressConsentToken = response.access_token;
+        });
+      },
+      onSignIn: function (orderReference) {
+      },
+    });
+  };
+
   Skirt.prototype.getOrderReference = function() {
     var access_token = document.getElementById("access_token").value;
 
@@ -15,7 +36,6 @@ javascript:
       url: "/amazon_order_reference",
       success: function(html){
         self.amazonOrderReferenceJson = JSON.parse(html);
-        // console.log(self.amazonOrderReferenceJson);
         if (typeof gotOrderReference == 'function') {
           gotOrderReference(self.amazonOrderReferenceJson);
         }
@@ -29,7 +49,6 @@ javascript:
     new OffAmazonPayments.Widgets.Wallet({
       sellerId: self.sellerId,
       onPaymentSelect: function() {
-        console.log('onPaymentSelect');
       },
       design: {
         designMode: 'responsive'
@@ -61,14 +80,12 @@ javascript:
           el.value = orderReferenceId;
         }
 
-        console.log('onOrderReferenceCreate');
         self.showWallet();
 
         self.getOrderReference();
 
       },
       onAddressSelect: function (orderReference) {
-        console.log('onAddressSelect');
       },
       design: {
           designMode: 'responsive'
