@@ -1,22 +1,6 @@
 #AmazonPayButton
-  button type="button" name="button" id="Logout"
-    | Logout
+  - Rails.env.development?
+    button type="button" name="button" id="Logout"
+      | Logout
 
-= render '/skirt/login_ready_js'
-= render '/skirt/skirt_js'
-
-javascript:
-
-  var skirt = new Skirt("#{Skirt::Config.seller_id}");
-
-  window.addEventListener('load', function (){
-    skirt.showPayWithAmazonButton(#{popup});
-  });
-
-  document.getElementById('Logout').onclick = function() {
-    amazon.Login.logout();
-    document.cookie = "amazon_Login_accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-    window.location.href = '/';
-  };
-
-= javascript_include_tag "https://static-fe.payments-amazon.com/OffAmazonPayments/jp/sandbox/lpa/js/Widgets.js"
+= render '/skirt/pay_with_amazon_button_js', popup: popup
