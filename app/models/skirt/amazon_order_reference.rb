@@ -62,6 +62,7 @@ module Skirt
                 .try("[]", "OrderReferenceDetails")
 
       return unless details
+      return unless details["Destination"]
 
       destination = details["Destination"]["PhysicalDestination"]
       buyer       = details["Buyer"]
@@ -164,6 +165,10 @@ module Skirt
       self.capture_result = response.to_json
       self.save
 
+    end
+
+    def captured?
+      self.capture_status == 'Closed'
     end
 
   end
