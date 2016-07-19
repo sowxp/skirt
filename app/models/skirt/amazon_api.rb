@@ -5,8 +5,8 @@ module Skirt
       return @client if @client
       @client = ::PayWithAmazon::Client.new(
         Config.seller_id,
-        Config.developer_access_key,
-        Config.developer_secret_key,
+        Config.mws_access_key_id,
+        Config.mws_secret_key,
         sandbox: true,
         currency_code: :jpy,
         region: :jp

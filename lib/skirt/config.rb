@@ -7,8 +7,8 @@ module Skirt
     attr_accessor :client_id
     attr_accessor :seller_id
 
-    attr_accessor :developer_access_key
-    attr_accessor :developer_secret_key
+    attr_accessor :mws_access_key_id
+    attr_accessor :mws_secret_key
 
     # メールに表示される情報(オプション)
     attr_accessor :store_name                # ショップ名・サイト名

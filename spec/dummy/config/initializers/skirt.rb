@@ -19,10 +19,10 @@ Skirt.configure do |config|
   config.seller_id = ENV['AMAZON_PAYMENTS_SELLER_ID']
 
   # AKI*****************
-  config.developer_access_key = ENV['AMAZON_PAYMENTS_DEVELOPER_ACCESS_KEY']
+  config.mws_access_key_id = ENV['AMAZON_MWS_ACCESS_KEY_ID']
 
   # 7ML*************************************
-  config.developer_secret_key = ENV['AMAZON_PAYMENTS_DEVELOPER_SECRET_KEY']
+  config.mws_secret_key = ENV['AMAZON_MWS_SECRET_KEY']
 
   # ショップ名・サイト名
   config.store_name = "dummy"
