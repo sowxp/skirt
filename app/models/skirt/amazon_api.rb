@@ -15,9 +15,11 @@ module Skirt
 
     # オーソライズAPI呼び出し
     def call_authorize(transaction_timeout = nil)
+      self.authorization_reference_id = self.generate_authorization_reference_id
+
       client.authorize(
         self.amazon_order_reference_id,
-        self.generate_authorization_reference_id,
+        self.authorization_reference_id,
         self.amount,
 
         currency_code: 'JPY', # Default: USD
