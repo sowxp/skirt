@@ -56,6 +56,8 @@ module Skirt
     end
 
     def copy_details(response)
+      # GetOrderReferenceDetails
+      # https://payments.amazon.com/documentation/apireference/201751970
 
       details = response["GetOrderReferenceDetailsResponse"]
                 .try("[]", "GetOrderReferenceDetailsResult")
@@ -69,6 +71,7 @@ module Skirt
       order_reference_status = details["OrderReferenceStatus"]["State"]
 
       self.destination_state_or_region = destination["StateOrRegion"]
+      self.destination_city            = destination["City"]
       self.destination_phone           = destination["Phone"]
       self.destination_country_code    = destination["CountryCode"]
       self.destination_postal_code     = destination["PostalCode"]

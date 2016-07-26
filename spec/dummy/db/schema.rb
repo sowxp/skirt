@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20160602021341) do
     t.string   "amazon_authorization_id"
     t.string   "amount"
     t.string   "destination_state_or_region"
+    t.string   "destination_city"
     t.string   "destination_phone"
     t.string   "destination_country_code"
     t.string   "destination_postal_code"
