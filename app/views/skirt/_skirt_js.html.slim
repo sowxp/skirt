@@ -3,6 +3,8 @@ javascript:
   Skirt = function(sellerId){
     this.sellerId = sellerId
     this.amazonOrderReferenceJson = null;
+    this.addressShown = false;
+    this.walletShown = false;
   };
 
   Skirt.prototype.showPayWithAmazonButton = function(popup) {
@@ -49,6 +51,8 @@ javascript:
     new OffAmazonPayments.Widgets.Wallet({
       sellerId: self.sellerId,
       onPaymentSelect: function() {
+        self.walletShown = true;
+        self.showOrderButton(); 
       },
       design: {
         designMode: 'responsive'
@@ -86,6 +90,8 @@ javascript:
 
       },
       onAddressSelect: function (orderReference) {
+        self.addressShown = true;
+        self.showOrderButton(); 
       },
       design: {
           designMode: 'responsive'
@@ -104,6 +110,11 @@ javascript:
 
       }
     }).bind("addressBookWidgetDiv");
+  };
 
-
+  Skirt.prototype.showOrderButton = function() {
+    var self = this;
+    if(self.addressShown && self.walletShown){
+      $('#amazonOrderButton').show();
+    }
   };

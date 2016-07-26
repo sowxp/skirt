@@ -1,4 +1,4 @@
 = form_tag Skirt::Config.purchase_path, method: :post do
   = text_field_tag 'access_token', params[:access_token]
   = text_field_tag :orderReferenceId
-  = submit_tag '確定'
+  = submit_tag '確定', id: 'amazonOrderButton', style: 'display:none'
