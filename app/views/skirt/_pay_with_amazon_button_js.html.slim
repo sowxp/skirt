@@ -15,4 +15,7 @@ javascript:
     window.location.href = '/';
   };
 
-= javascript_include_tag "https://static-fe.payments-amazon.com/OffAmazonPayments/jp/sandbox/lpa/js/Widgets.js"
+- if Rails.env.production?
+  = javascript_include_tag "https://static-fe.payments-amazon.com/OffAmazonPayments/jp/lpa/js/Widgets.js"
+- else
+  = javascript_include_tag "https://static-fe.payments-amazon.com/OffAmazonPayments/jp/sandbox/lpa/js/Widgets.js"

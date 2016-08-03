@@ -7,7 +7,7 @@ module Skirt
         Config.seller_id,
         Config.mws_access_key_id,
         Config.mws_secret_key,
-        sandbox: true,
+        sandbox: !Rails.env.production?,
         currency_code: :jpy,
         region: :jp
       )
