@@ -171,7 +171,7 @@ module Skirt
     end
 
     def captured?
-      self.capture_status == 'Closed'
+      %w(Completed Closed).include? self.capture_status
     end
 
   end
