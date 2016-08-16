@@ -174,6 +174,10 @@ module Skirt
       %w(Completed Closed).include? self.capture_status
     end
 
+    def cancel
+      call_cancel_order_reference(amazon_order_reference_id)
+    end
+
   end
 
 end

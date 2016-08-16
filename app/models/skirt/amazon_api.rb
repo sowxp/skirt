@@ -66,6 +66,10 @@ module Skirt
       )
     end
 
+    def call_cancel_order_reference(amazon_order_reference_id)
+      client.cancel_order_reference(amazon_order_reference_id)
+    end
+
     def call_close_order_reference(amazon_order_reference_id)
       client.close_order_reference(amazon_order_reference_id)
     end
