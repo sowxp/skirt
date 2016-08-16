@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160602021341) do
+ActiveRecord::Schema.define(version: 20160816070426) do
 
   create_table "amazon_order_references", force: :cascade do |t|
     t.integer  "user_id"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20160602021341) do
     t.text     "capture_result"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+    t.string   "cancel_status_reason_code"
   end
 
 end

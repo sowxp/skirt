@@ -175,7 +175,13 @@ module Skirt
     end
 
     def cancel
-      call_cancel_order_reference(amazon_order_reference_id)
+      ret_xml = call_cancel_order_reference(amazon_order_reference_id)
+
+      # エラー処理
+      error_code = treat_error(ret_xml, :cancel_status_reason_code)
+      raise AmazonOrderReferenceError, error_code if error_code
+
+      self.update_attribute(:order_reference_status, 'Canceled')
     end
 
   end

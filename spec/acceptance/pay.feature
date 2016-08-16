@@ -75,3 +75,4 @@ Feature: Pay
     Then order_reference_idを取得
 
     Then cancelする
+    Then order_reference_statusが'Canceled'であること
