@@ -181,7 +181,18 @@ module Skirt
       error_code = treat_error(ret_xml, :cancel_status_reason_code)
       raise AmazonOrderReferenceError, error_code if error_code
 
-      self.update_attribute(:order_reference_status, 'Canceled')
+      # ステータス取得
+      ret_xml = call_get_order_reference_details(self.amazon_order_reference_id)
+
+      error_code = treat_error(ret_xml, :order_reference_status_reason_code)
+      raise AmazonOrderReferenceError, error_code if error_code
+
+      path = 'GetOrderReferenceDetailsResponse/GetOrderReferenceDetailsResult' \
+             '/OrderReferenceDetails/OrderReferenceStatus'
+
+      status = ret_xml.get_element(path, 'State')
+
+      self.update_attribute(:order_reference_status, status)
     end
 
   end

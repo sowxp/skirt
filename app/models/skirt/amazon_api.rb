@@ -47,7 +47,7 @@ module Skirt
     end
 
     def call_get_order_reference_details(amazon_order_reference_id,
-                                         address_consent_token)
+                                         address_consent_token = nil)
 
       client.get_order_reference_details(
         amazon_order_reference_id,
