@@ -178,6 +178,32 @@ module Skirt
       %w(Open).include? self.authorization_status
     end
 
+    def cancel
+      ret_xml = call_cancel_order_reference(amazon_order_reference_id)
+
+      # エラー処理
+      error_code = treat_error(ret_xml, :cancel_status_reason_code)
+      raise AmazonOrderReferenceError, error_code if error_code
+
+      inquire_order_status
+    end
+
+    def inquire_order_status
+      # ステータス取得
+      ret_xml = call_get_order_reference_details(self.amazon_order_reference_id)
+
+      # エラー処理
+      error_code = treat_error(ret_xml, :order_reference_status_reason_code)
+      raise AmazonOrderReferenceError, error_code if error_code
+
+      path = 'GetOrderReferenceDetailsResponse/GetOrderReferenceDetailsResult' \
+             '/OrderReferenceDetails/OrderReferenceStatus'
+
+      status = ret_xml.get_element(path, 'State')
+
+      self.update_attribute(:order_reference_status, status)
+    end
+
   end
 
 end

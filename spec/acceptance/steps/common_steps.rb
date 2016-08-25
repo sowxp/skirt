@@ -1,25 +1,25 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 step ':pathにアクセスする' do |path|
-  page.save_screenshot("tmp/poltergeist.png", full: true)   
+  page.save_screenshot("tmp/poltergeist.png", full: true)
   visit path
 end
 
-step 'html' do 
+step 'html' do
   p page.html
 end
 
 step 'screenshot:name' do |name|
-  page.save_screenshot("tmp/poltergeist_#{name}.png")   
+  page.save_screenshot("tmp/poltergeist_#{name}.png")
 end
 
 step ':selectorをクリック' do |selector|
   find(selector).click
-end 
+end
 
 step 'ボタン:nameをクリック' do |name|
   click_button name
-end 
+end
 
 step 'amazonにログイン' do
 
@@ -33,8 +33,11 @@ step 'amazonにログイン' do
   fill_in "ap_email", :with => ENV["AMAZON_PAYMENTS_TEST_USER_MAIL"]
   fill_in "ap_password", :with => ENV["AMAZON_PAYMENTS_TEST_USER_PASSWORD"]
 
-  click_button "Sign in using our secure server"
-  
+  #click_button "Sign in using our secure server"
+  #page.first(".signin-button-text").click
+  selector = '.signin-button-text'
+  find(selector).click
+
   sleep(3)
 end
 
@@ -54,10 +57,12 @@ step 'amazonにポップアップログイン' do
     fill_in "ap_email", :with => ENV["AMAZON_PAYMENTS_TEST_USER_MAIL"]
     fill_in "ap_password", :with => ENV["AMAZON_PAYMENTS_TEST_USER_PASSWORD"]
 
-    click_button "Sign in using our secure server"
-  end
+    #click_button "Sign in using our secure server"
+    selector = '.signin-button-text'
+    find(selector).click
+end
 
-  
+
   sleep(3)
 end
 
@@ -107,7 +112,7 @@ step "confirm_order_refernceを正しく呼べること" do
   @aor = Skirt::AmazonOrderReference.new
   @aor.amount = 10
   @aor.amazon_order_reference_id = @order_reference_id
-  
+
   @aor.set_order_refernce_details
   response = @aor.confirm_order_reference
   expect(response["ConfirmOrderReferenceResponse"]).to be_present
@@ -118,7 +123,7 @@ step "authorizeを正しく呼べること" do
   @aor = Skirt::AmazonOrderReference.new
   @aor.amount = 10
   @aor.amazon_order_reference_id = @order_reference_id
-  
+
   @aor.set_order_refernce_details
   @aor.confirm_order_reference
 
@@ -132,7 +137,7 @@ step "0秒でauthorizeしてcaptureする" do
   @aor = Skirt::AmazonOrderReference.new
   @aor.amount = 10
   @aor.amazon_order_reference_id = @order_reference_id
-  
+
   @aor.set_order_refernce_details
   @aor.confirm_order_reference
 
@@ -144,7 +149,7 @@ step "save_and_authorizeを正しく呼べること" do
   @aor = Skirt::AmazonOrderReference.new
   @aor.amount = 10
   @aor.amazon_order_reference_id = @order_reference_id
-  
+
   response = @aor.save_and_authorize(@access_token)
   state = response["GetOrderReferenceDetailsResponse"]["GetOrderReferenceDetailsResult"]["OrderReferenceDetails"]["OrderReferenceStatus"]["State"]
   expect(state).to eq "Closed"
@@ -163,4 +168,15 @@ end
 step "capture_statusが:statusであること" do |status|
   aor = Skirt::AmazonOrderReference.last
   expect(aor.capture_status).to eq status
+end
+
+step "cancelする" do
+  @aor = Skirt::AmazonOrderReference.new
+  @aor.amount = 10
+  @aor.amazon_order_reference_id = @order_reference_id
+
+  @aor.set_order_refernce_details
+  @aor.confirm_order_reference
+
+  response = @aor.cancel
 end
