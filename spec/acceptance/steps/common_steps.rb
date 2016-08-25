@@ -66,6 +66,14 @@ end
   sleep(3)
 end
 
+step 'amazonからlogoutする' do
+  page.execute_script "amazon.Login.logout();"
+end
+
+step 'pryを呼び出す' do
+  binding.pry
+  puts ''
+end
 
 step 'sleep :seconds' do |seconds|
   sleep seconds.to_i
@@ -145,14 +153,14 @@ step "0秒でauthorizeしてcaptureする" do
   response = @aor.capture
 end
 
-step "save_and_authorizeを正しく呼べること" do
+step "orderを正しく呼べること" do
   @aor = Skirt::AmazonOrderReference.new
   @aor.amount = 10
   @aor.amazon_order_reference_id = @order_reference_id
 
-  response = @aor.save_and_authorize(@access_token)
+  response = @aor.order(@access_token)
   state = response["GetOrderReferenceDetailsResponse"]["GetOrderReferenceDetailsResult"]["OrderReferenceDetails"]["OrderReferenceStatus"]["State"]
-  expect(state).to eq "Closed"
+  expect(state).to eq "Open"
 end
 
 step "order_reference_statusが:statusであること" do |status|
@@ -172,11 +180,7 @@ end
 
 step "cancelする" do
   @aor = Skirt::AmazonOrderReference.new
-  @aor.amount = 10
   @aor.amazon_order_reference_id = @order_reference_id
-
-  @aor.set_order_refernce_details
-  @aor.confirm_order_reference
 
   response = @aor.cancel
 end

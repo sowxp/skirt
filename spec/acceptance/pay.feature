@@ -8,8 +8,7 @@ Feature: Pay
     Then amazonにログイン
     Then ボタン'確定'をクリック
 
-    Then order_reference_statusが'Closed'であること
-    Then authorization_statusが'Pending'であること
+    Then order_reference_statusが'Open'であること
 
   @javascript
   Scenario: ポップアップログインして購入
@@ -48,14 +47,15 @@ Feature: Pay
     Then access_tokenを取得
     Then order_reference_idを取得
     Then authorizeを正しく呼べること
+    Then authorization_statusが'Pending'であること
 
   @javascript
-  Scenario: save_and_authorize
+  Scenario: order
     Given '/amazon_payments/login'にアクセスする
     Then amazonにログイン
     Then access_tokenを取得
     Then order_reference_idを取得
-  #    Then save_and_authorizeを正しく呼べること
+    Then orderを正しく呼べること
 
   @javascript
   Scenario: capture
@@ -73,6 +73,7 @@ Feature: Pay
     Then amazonにログイン
     Then access_tokenを取得
     Then order_reference_idを取得
+    Then orderを正しく呼べること
 
     Then cancelする
     Then order_reference_statusが'Canceled'であること

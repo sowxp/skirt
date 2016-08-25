@@ -23,7 +23,7 @@ class AmazonPaymentsController < ApplicationController
       seller_order_id = "rspec #{Time.now.to_s}"
     end 
 
-    @aor.save_and_authorize(@access_token, seller_order_id)
+    @aor.order(@access_token, seller_order_id)
 
     # TODO: 課金が成功しなかったらロールバック 
 
