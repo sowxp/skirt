@@ -9,8 +9,8 @@ Feature: Pay
     Then ボタン'確定'をクリック
 
     Then order_reference_statusが'Closed'であること
-    Then authorization_statusが'Pending'であること
-
+    Then authorization_statusが'Open'であること
+  
   @javascript
   Scenario: ポップアップログインして購入
     Given '/amazon_payments/login?popup=true'にアクセスする
