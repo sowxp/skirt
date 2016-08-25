@@ -98,7 +98,7 @@ module Skirt
     end
 
     # オーソライズ
-    def authorize(transation_timeout = nil)
+    def authorize(transation_timeout = 0)
       # オーソライズ呼び出し
       ret_xml = self.call_authorize(transation_timeout)
 
@@ -172,6 +172,10 @@ module Skirt
 
     def captured?
       %w(Completed Closed).include? self.capture_status
+    end
+
+    def authorized?
+      %w(Open).include? self.authorization_status
     end
 
   end
