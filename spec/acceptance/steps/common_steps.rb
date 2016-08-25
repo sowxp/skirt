@@ -70,11 +70,6 @@ step 'amazonからlogoutする' do
   page.execute_script "amazon.Login.logout();"
 end
 
-step 'pryを呼び出す' do
-  binding.pry
-  puts ''
-end
-
 step 'sleep :seconds' do |seconds|
   sleep seconds.to_i
 end

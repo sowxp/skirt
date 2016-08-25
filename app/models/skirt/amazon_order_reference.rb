@@ -135,6 +135,23 @@ module Skirt
       self.save
     end
 
+    def save_and_authorize(access_token, seller_order_id = nil)
+      set_order_refernce_details(seller_order_id)
+      confirm_order_reference
+
+      if self.save!
+        authorize
+
+        response = get_order_reference_details(self.amazon_order_reference_id,
+                                               access_token)
+
+        copy_details(response)
+        self.save
+      end
+
+      response
+    end
+
     def order(access_token, seller_order_id = nil)
       set_order_refernce_details(seller_order_id)
       confirm_order_reference
