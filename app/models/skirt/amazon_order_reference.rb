@@ -118,7 +118,7 @@ module Skirt
     end
 
     # オーソライズのクローズ
-    def close_authorization()
+    def close_authorization
       self.call_close_authorization
 
       ret_xml = get_authorization_details
