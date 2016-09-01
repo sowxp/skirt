@@ -138,18 +138,6 @@ step "close_authorizeを正しく呼べること" do
   expect(@aor.authorization_status).to eq 'Closed'
 end
 
-step "captureする" do
-  response = @aor.capture
-end
-
-step "get_order_reference_detailsする" do
-  response = @aor.get_order_reference_details(@aor.amazon_order_reference_id, nil)
-end
-
-step "get_authorization_detailsする" do
-  response = @aor.get_authorization_details
-end
-
 step "0秒でauthorizeしてcaptureする" do
   @aor = Skirt::AmazonOrderReference.new
   @aor.amount = 10
