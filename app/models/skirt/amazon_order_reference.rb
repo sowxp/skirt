@@ -55,6 +55,10 @@ module Skirt
       Hash.from_xml ret_xml.body
     end
 
+    def get_authorization_details
+      call_get_authorization_details(self.amazon_authorization_id)
+    end
+
     def copy_details(response)
       # GetOrderReferenceDetails
       # https://payments.amazon.com/documentation/apireference/201751970
@@ -113,14 +117,29 @@ module Skirt
       Hash.from_xml ret_xml.body
     end
 
+    # オーソライズのクローズ
+    def close_authorization
+      self.call_close_authorization
+
+      ret_xml = get_authorization_details
+
+      path = 'GetAuthorizationDetailsResponse/GetAuthorizationDetailsResult/' \
+             'AuthorizationDetails/AuthorizationStatus'
+
+      self.authorization_status = ret_xml.get_element(path, 'State')
+      self.save
+
+      self.authorization_status == "Closed"
+    end
+
     # オーソライズの結果をARに保持
     def save_authorization_result(ret_xml)
 
       path = 'AuthorizeResponse/AuthorizeResult/' \
              'AuthorizationDetails/AuthorizationStatus'
 
-      self.authorization_status = ret_xml.get_element(path, 'State')
 
+      self.authorization_status = ret_xml.get_element(path, 'State')
       # You will need the Amazon Authorization Id from the
       # Authorize API response if you decide to make the
       # Capture API call separately.

@@ -133,6 +133,21 @@ step "authorizeを正しく呼べること" do
   expect(details).to be_present
 end
 
+step "close_authorizeを正しく呼べること" do
+  @aor.close_authorization
+  expect(@aor.authorization_status).to eq 'Closed'
+end
+
+step "authorization_statusが:stateなこと" do |state|
+  response = @aor.get_authorization_details
+
+  hash =  Hash.from_xml response.body
+  _state = hash["GetAuthorizationDetailsResponse"]["GetAuthorizationDetailsResult"]["AuthorizationDetails"]["AuthorizationStatus"]["State"]
+
+  expect(_state).to eq state
+end
+
+
 step "0秒でauthorizeしてcaptureする" do
   @aor = Skirt::AmazonOrderReference.new
   @aor.amount = 10

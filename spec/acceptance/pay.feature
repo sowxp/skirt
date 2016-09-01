@@ -10,7 +10,7 @@ Feature: Pay
 
     Then order_reference_statusが'Closed'であること
     Then authorization_statusが'Open'であること
-  
+
   @javascript
   Scenario: ポップアップログインして購入
     Given '/amazon_payments/login?popup=true'にアクセスする
@@ -48,6 +48,17 @@ Feature: Pay
     Then access_tokenを取得
     Then order_reference_idを取得
     Then authorizeを正しく呼べること
+
+  @javascript
+  Scenario: close_authorization
+    Given '/amazon_payments/login'にアクセスする
+    Then amazonにログイン
+    Then access_tokenを取得
+    Then order_reference_idを取得
+    Then authorizeを正しく呼べること
+    Then authorization_statusが'Open'なこと
+    Then close_authorizeを正しく呼べること
+    Then authorization_statusが'Closed'なこと
 
   @javascript
   Scenario: save_and_authorize
