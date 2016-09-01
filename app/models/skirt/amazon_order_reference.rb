@@ -112,12 +112,9 @@ p Hash.from_xml ret_xml.body
     def authorize(transation_timeout = 0)
       # オーソライズ呼び出し
       ret_xml = self.call_authorize(transation_timeout)
-p __LINE__
       # 結果を保存
       self.save_authorization_result(ret_xml)
-p __LINE__
       call_close_order_reference(amazon_order_reference_id)
-p __LINE__
 
       # エラー処理
       error_code = treat_error(ret_xml, :authorization_status_reason_code)
@@ -129,9 +126,8 @@ p __LINE__
     # オーソライズのクローズ
     def close_authorization()
       # オーソライズ呼び出し
-      ret_xml = self.call_close_authorization
+      self.call_close_authorization
 
-      # Hash.from_xml ret_xml.body
       ret_xml = get_authorization_details
 
       path = 'GetAuthorizationDetailsResponse/GetAuthorizationDetailsResult/' \
@@ -139,12 +135,8 @@ p __LINE__
 
       self.authorization_status = ret_xml.get_element(path, 'State')
 
-p __LINE__
-      p self.authorization_status
-
-      # Hash.from_xml ret_xml.body
+      self.authorization_status == "Closed"
     end
-
 
 
     # オーソライズの結果をARに保持
