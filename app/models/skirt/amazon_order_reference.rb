@@ -56,14 +56,7 @@ module Skirt
     end
 
     def get_authorization_details
-p __LINE__
-p "self.amazon_authorization_id #{self.amazon_authorization_id}"
-      ret_xml = call_get_authorization_details(self.amazon_authorization_id)
-p Hash.from_xml ret_xml.body
-
-      ret_xml
-
-      # Hash.from_xml ret_xml.body
+      call_get_authorization_details(self.amazon_authorization_id)
     end
 
     def copy_details(response)
@@ -112,6 +105,7 @@ p Hash.from_xml ret_xml.body
     def authorize(transation_timeout = 0)
       # オーソライズ呼び出し
       ret_xml = self.call_authorize(transation_timeout)
+
       # 結果を保存
       self.save_authorization_result(ret_xml)
       call_close_order_reference(amazon_order_reference_id)
@@ -134,7 +128,6 @@ p Hash.from_xml ret_xml.body
              'AuthorizationDetails/AuthorizationStatus'
 
       self.authorization_status = ret_xml.get_element(path, 'State')
-
       self.authorization_status == "Closed"
     end
 
@@ -150,7 +143,6 @@ p Hash.from_xml ret_xml.body
       # You will need the Amazon Authorization Id from the
       # Authorize API response if you decide to make the
       # Capture API call separately.
-      #
       self.amazon_authorization_id = ret_xml.get_element(
         'AuthorizeResponse/AuthorizeResult/AuthorizationDetails',
         'AmazonAuthorizationId'
@@ -218,7 +210,7 @@ p Hash.from_xml ret_xml.body
     def inquire_order_status
       # ステータス取得
       ret_xml = call_get_order_reference_details(self.amazon_order_reference_id)
-p ret_xml
+
       # エラー処理
       error_code = treat_error(ret_xml, :order_reference_status_reason_code)
       raise AmazonOrderReferenceError, error_code if error_code
