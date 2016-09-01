@@ -119,7 +119,6 @@ module Skirt
 
     # オーソライズのクローズ
     def close_authorization()
-      # オーソライズ呼び出し
       self.call_close_authorization
 
       ret_xml = get_authorization_details
@@ -128,9 +127,10 @@ module Skirt
              'AuthorizationDetails/AuthorizationStatus'
 
       self.authorization_status = ret_xml.get_element(path, 'State')
+      self.save
+
       self.authorization_status == "Closed"
     end
-
 
     # オーソライズの結果をARに保持
     def save_authorization_result(ret_xml)

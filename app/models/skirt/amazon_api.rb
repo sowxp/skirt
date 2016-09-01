@@ -32,11 +32,8 @@ module Skirt
     end
 
     # オーソリ取り消し
-    def call_close_authorization()
-      close_reason = nil
-      client.close_authorization(
-        self.amazon_authorization_id
-      )
+    def call_close_authorization
+      client.close_authorization(self.amazon_authorization_id)
     end
 
     # キャプチャ（支払い）
@@ -64,10 +61,7 @@ module Skirt
     end
 
     def call_get_authorization_details(amazon_authorization_id)
-      resonse = client.get_authorization_details(
-        amazon_authorization_id
-      )
-
+      client.get_authorization_details(amazon_authorization_id)
     end
 
     def call_set_order_reference_details(seller_order_id = '')
