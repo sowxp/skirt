@@ -56,7 +56,9 @@ Feature: Pay
     Then access_tokenを取得
     Then order_reference_idを取得
     Then authorizeを正しく呼べること
+    Then authorization_statusが'Open'なこと
     Then close_authorizeを正しく呼べること
+    Then authorization_statusが'Closed'なこと
 
   @javascript
   Scenario: save_and_authorize
