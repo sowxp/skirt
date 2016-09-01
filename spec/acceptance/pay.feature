@@ -65,23 +65,23 @@ Feature: Pay
     Then access_tokenを取得
     Then order_reference_idを取得
   #    Then save_and_authorizeを正しく呼べること
- 
+
   @javascript
   Scenario: capture
     Given '/amazon_payments/login'にアクセスする
     Then amazonにログイン
     Then access_tokenを取得
     Then order_reference_idを取得
- 
+
     Then 0秒でauthorizeしてcaptureする
     Then capture_statusが'Completed'であること
- 
+
   @javascript
   Scenario: cancel
     Given '/amazon_payments/login'にアクセスする
     Then amazonにログイン
     Then access_tokenを取得
     Then order_reference_idを取得
- 
+
     Then cancelする
     Then order_reference_statusが'Canceled'であること
