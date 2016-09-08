@@ -148,7 +148,7 @@ step "authorization_statusが:stateなこと" do |state|
 end
 
 
-step "0秒でauthorizeしてcaptureする" do
+step "0秒でauthorizeしてcaptureするとamountが請求されること" do
   @aor = Skirt::AmazonOrderReference.new
   @aor.amount = 10
   @aor.amazon_order_reference_id = @order_reference_id
@@ -158,9 +158,10 @@ step "0秒でauthorizeしてcaptureする" do
 
   response = @aor.authorize(0)
   response = @aor.capture
+  expect(response['CaptureResponse']['CaptureResult']['CaptureDetails']['CaptureAmount']['Amount']).to eq '10.00'
 end
 
-step "0秒でauthorizeして金額指定でcaptureする" do
+step "0秒でauthorizeして金額指定でcaptureすると指定金額が請求されること" do
   @aor = Skirt::AmazonOrderReference.new
   @aor.amount = 10
   @aor.amazon_order_reference_id = @order_reference_id
@@ -170,6 +171,7 @@ step "0秒でauthorizeして金額指定でcaptureする" do
 
   response = @aor.authorize(0)
   response = @aor.capture(5)
+  expect(response['CaptureResponse']['CaptureResult']['CaptureDetails']['CaptureAmount']['Amount']).to eq '5.00'
 end
 
 step "save_and_authorizeを正しく呼べること" do

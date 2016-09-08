@@ -75,7 +75,7 @@ Feature: Pay
     Then access_tokenを取得
     Then order_reference_idを取得
 
-    Then 0秒でauthorizeしてcaptureする
+    Then 0秒でauthorizeしてcaptureするとamountが請求されること
     Then capture_statusが'Completed'であること
 
   @javascript
@@ -85,7 +85,7 @@ Feature: Pay
     Then access_tokenを取得
     Then order_reference_idを取得
 
-    Then 0秒でauthorizeして金額指定でcaptureする
+    Then 0秒でauthorizeして金額指定でcaptureすると指定金額が請求されること
     Then capture_statusが'Completed'であること
 
   @javascript

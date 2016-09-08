@@ -187,6 +187,7 @@ module Skirt
       self.capture_result = response.to_json
       self.save
 
+      response
     end
 
     def captured?
