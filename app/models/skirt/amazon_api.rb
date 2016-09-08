@@ -37,11 +37,11 @@ module Skirt
     end
 
     # キャプチャ（支払い）
-    def call_capture
+    def call_capture(capture_amount = nil)
       client.capture(
         self.amazon_authorization_id,
         self.generate_capture_reference_id,
-        self.amount,
+        capture_amount || self.amount,
         currency_code: 'JPY',
         seller_capture_note: ''
       )

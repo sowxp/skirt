@@ -42,7 +42,7 @@ module Skirt
     end
 
     def get_order_reference_details(amazon_order_reference_id,
-                                    address_consent_token)
+                                    address_consent_token = nil)
 
       ret_xml = call_get_order_reference_details(
         amazon_order_reference_id,
@@ -171,8 +171,8 @@ module Skirt
       response
     end
 
-    def capture
-      ret_xml = call_capture
+    def capture(capture_amount = nil)
+      ret_xml = call_capture(capture_amount)
 
       path = 'CaptureResponse/CaptureResult' \
              '/CaptureDetails/CaptureStatus'
@@ -187,6 +187,7 @@ module Skirt
       self.capture_result = response.to_json
       self.save
 
+      response
     end
 
     def captured?
