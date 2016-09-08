@@ -160,6 +160,18 @@ step "0秒でauthorizeしてcaptureする" do
   response = @aor.capture
 end
 
+step "0秒でauthorizeして金額指定でcaptureする" do
+  @aor = Skirt::AmazonOrderReference.new
+  @aor.amount = 10
+  @aor.amazon_order_reference_id = @order_reference_id
+
+  @aor.set_order_refernce_details
+  @aor.confirm_order_reference
+
+  response = @aor.authorize(0)
+  response = @aor.capture(5)
+end
+
 step "save_and_authorizeを正しく呼べること" do
   @aor = Skirt::AmazonOrderReference.new
   @aor.amount = 10

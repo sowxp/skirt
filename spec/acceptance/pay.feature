@@ -79,6 +79,16 @@ Feature: Pay
     Then capture_statusが'Completed'であること
 
   @javascript
+  Scenario: capture
+    Given '/amazon_payments/login'にアクセスする
+    Then amazonにログイン
+    Then access_tokenを取得
+    Then order_reference_idを取得
+
+    Then 0秒でauthorizeして金額指定でcaptureする
+    Then capture_statusが'Completed'であること
+
+  @javascript
   Scenario: cancel
     Given '/amazon_payments/login'にアクセスする
     Then amazonにログイン
