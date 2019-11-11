@@ -6,7 +6,7 @@ javascript:
   var skirt = new Skirt("#{Skirt::Config.seller_id}");
 
   window.addEventListener('load', function (){
-    skirt.showPayWithAmazonButton(#{popup}, #{size});
+    skirt.showPayWithAmazonButton(#{popup}, '#{size}');
   });
 
   document.getElementById('Logout').onclick = function() {
