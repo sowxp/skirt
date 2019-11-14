@@ -49,8 +49,6 @@ javascript:
     var self = this;
     // Wallet
     new OffAmazonPayments.Widgets.Wallet({
-      console.log("OffAmazonPayments.Widgets.Wallet");
-
       sellerId: self.sellerId,
       onPaymentSelect: function() {
         self.walletShown = true;
@@ -64,8 +62,6 @@ javascript:
         // @see https://payments.amazon.com/documentation/lpwa/201954960
         var errorCode = error.getErrorCode();
         var errorMessage = error.getErrorMessage();
-        console.log(errorCode);
-        console.log(errorMessage);
 
         //alert(errorMessage);
 
