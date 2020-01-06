@@ -16,6 +16,7 @@ config/deploy.rb
 Capfile
 server_environments
 vendor/bundler/
+vendor/bundle/
 .bundle
 .ruby-version
 
@@ -35,3 +36,5 @@ spec/dummy/tmp
 spec/dummy/log/*
 spec/dummy/db/test.sqlite3
 spec/support/*
+
+.idea
