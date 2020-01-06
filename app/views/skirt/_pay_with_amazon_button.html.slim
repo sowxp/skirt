@@ -1,6 +1,6 @@
 #AmazonPayButton
-  - Rails.env.development?
+  - if Rails.env.development?
     button type="button" name="button" id="Logout"
       | Logout
 
-= render '/skirt/pay_with_amazon_button_js', popup: popup
+= render '/skirt/pay_with_amazon_button_js', popup: popup, size: size)

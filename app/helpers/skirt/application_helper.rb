@@ -9,8 +9,8 @@ module Skirt
       render '/skirt/order_button'
     end
 
-    def show_pay_with_amazon_button(popup = false)
-      render '/skirt/pay_with_amazon_button', popup: popup
+    def show_pay_with_amazon_button(popup = false, size = "medium")
+      render '/skirt/pay_with_amazon_button', popup: popup, size: size
     end
 
     def show_amazon_payments_wallet_widget
