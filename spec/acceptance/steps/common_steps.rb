@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 step ':pathにアクセスする' do |path|
-  page.save_screenshot("tmp/poltergeist.png", full: true)
+  #page.save_screenshot("tmp/poltergeist.png", full: true)
   visit path
 end
 
@@ -10,7 +10,7 @@ step 'html' do
 end
 
 step 'screenshot:name' do |name|
-  page.save_screenshot("tmp/poltergeist_#{name}.png")
+  #page.save_screenshot("tmp/poltergeist_#{name}.png")
 end
 
 step ':selectorをクリック' do |selector|
