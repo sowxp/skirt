@@ -32,9 +32,8 @@ end
 
 Capybara.register_driver :selenium_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
-  options.add_argument('headless') # ヘッドレスモードをonにするオプション
+  #options.add_argument('headless') # ヘッドレスモードをonにするオプション
   options.add_argument('--disable-gpu') # 暫定的に必要なフラグとのこと
-  options.add_option(:w3c, false)
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options, )
 end
 
@@ -53,9 +52,9 @@ Capybara.configure do |config|
   config.default_max_wait_time = 30
 end  
 
-Capybara.default_host = "http://sowxp-gift-poltergeist.dev"
+Capybara.default_host = "https://sowxp-gift.dev"
 
-Capybara.server_port = 8443
+Capybara.server_port = 9292
 Capybara.app_host = "https://#{Capybara.default_host}:#{Capybara.server_port}"
 
 

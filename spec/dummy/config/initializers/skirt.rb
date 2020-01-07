@@ -5,7 +5,7 @@ Skirt.configure do |config|
 
   # ログイン後のURL
   if Rails.env.test?
-    config.after_login_path = 'https://sowxp-gift-poltergeist.dev:8443/amazon_payments/new'
+    config.after_login_path = 'https://sowxp-gift.dev:8443/amazon_payments/new'
   elsif Rails.env.development?
     config.after_login_path = 'https://sowxp-gift.dev/amazon_payments/new'
   end
