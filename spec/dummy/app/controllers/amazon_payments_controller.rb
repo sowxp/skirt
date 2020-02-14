@@ -29,7 +29,7 @@ class AmazonPaymentsController < ApplicationController
 
     # TODO: 完了画面へリダイレクト
 
-    render text: @aor.to_json
+    render plain: @aor.to_json
 
   end
 

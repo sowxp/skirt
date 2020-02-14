@@ -11,10 +11,10 @@ module Skirt
       response = @aor.get_order_reference_details(@reference_id, @access_token)
       @aor.copy_details(response)
 
-      render text: @aor.to_json
+      render plain: @aor.to_json
 
     rescue AmazonOrderReferenceError => e
-      render text: [].to_json
+      render plain: [].to_json
     end
 
   end
