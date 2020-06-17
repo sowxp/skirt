@@ -7,7 +7,7 @@ javascript:
     this.walletShown = false;
   };
 
-  Skirt.prototype.showPayWithAmazonButton = function(popup, size) {
+  Skirt.prototype.showAmazonPayButton = function(popup, size) {
     var seller_id = "#{Skirt::Config.seller_id}";
     OffAmazonPayments.Button("AmazonPayButton", seller_id, {
       type:  "PwA",

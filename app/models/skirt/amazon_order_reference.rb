@@ -1,4 +1,4 @@
-require 'pay_with_amazon'
+require 'amazon_pay'
 
 # [Order Reference Status メモ]
 # https://payments.amazon.com/documentation/apireference/201752920

@@ -1,4 +1,4 @@
-require 'pay_with_amazon'
+require 'amazon_pay'
 class AmazonPaymentsController < ApplicationController
 
   def login

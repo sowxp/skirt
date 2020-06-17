@@ -3,7 +3,7 @@ module Skirt
 
     def client
       return @client if @client
-      @client = ::PayWithAmazon::Client.new(
+      @client = ::AmazonPay::Client.new(
         Config.seller_id,
         Config.mws_access_key_id,
         Config.mws_secret_key,
